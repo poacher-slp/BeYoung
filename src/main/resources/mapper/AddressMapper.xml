@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.poacher.beyoungmall.mapper.AddressMapper">
+
+    <sql id="addrDatas">
+        `user_id`,`receiver_name`,`receiver_mobile`,`province`,`city`,
+        `area`,`addr`,`post_code`,`area_code`,`city_code`, `province_code`, `status`,
+        `common_addr`, `create_time`, `update_time`, `tag`
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="addrId">
+        insert into `user_addr` (
+        <include refid="addrDatas" />
+        )
+        values (
+        #{userId}, #{receiverName}, #{receiverMobile}, #{province}, #{city}, #{area},
+        #{addr}, #{postCode}, #{areaCode}, #{cityCode}, #{provinceCode}, #{status},
+        #{commonAddr}, #{createTime}, #{updateTime}, #{tag}
+        )
+    </insert>
+
+    <select id="countByUid" resultType="java.lang.Integer">
+        select count(*) from `user_addr`
+        where `user_id` = #{userId}
+    </select>
+
+    <select id="findByUid" resultType="per.poacher.beyoungmall.pojo.Address">
+        select `addr_id`,
+        <include refid="addrDatas" />
+        from `user_addr`
+        where `user_id` = #{userId}
+        order by common_addr desc, create_time desc
+    </select>
+
+    <select id="findByAid" resultType="per.poacher.beyoungmall.pojo.Address">
+        select `addr_id`,
+        <include refid="addrDatas" />
+        from `user_addr`
+        where addr_id = #{addrId}
+    </select>
+
+    <update id="updateNonDefault">
+        update `user_addr`
+        set common_addr = 0
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateDefaultByAid">
+        update `user_addr`
+        set common_addr = 1,
+        update_time = #{updateTime}
+        where addr_id = #{addrId}
+    </update>
+
+    <delete id="deleteByAid">
+        delete from `user_addr`
+        where addr_id = #{addrId}
+    </delete>
+
+    <select id="findLastModified" resultType="per.poacher.beyoungmall.pojo.Address">
+        select `addr_id`,
+        <include refid="addrDatas" />
+        from `user_addr`
+        where `user_id` = #{userId}
+        order by update_time desc limit 0,1
+    </select>
+
+    <update id="updateByAid">
+        update `user_addr`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="receiverName != '' and receiverName != null">
+                receiver_name = #{receiverName},
+            </if>
+            <if test="provinceCode != '' and provinceCode != null">
+                province_code = #{provinceCode},
+            </if>
+            <if test="cityCode != '' and cityCode != null">
+                city_code = #{cityCode},
+            </if>
+            <if test="areaCode != '' and areaCode != null">
+                area_code = #{areaCode},
+            </if>
+            <if test="addr != '' and addr != null">
+                addr = #{addr},
+            </if>
+            <if test="receiverMobile != '' and receiverMobile != null">
+                receiver_mobile = #{receiverMobile},
+            </if>
+            <if test="postCode != '' and postCode != null">
+                post_code = #{postCode},
+            </if>
+            <if test="tag != '' and tag != null">
+                tag = #{tag},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </trim>
+        where addr_id = #{addrId}
+    </update>
+</mapper>

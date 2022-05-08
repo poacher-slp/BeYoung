@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.poacher.beyoungmall.mapper.UserMapper">
+
+    <sql id="usersDatas">
+        `username`,`password`,`nickname`,`realname`,`user_img`,`user_mobile`,
+        `user_email`,`user_sex`,`user_birth`,
+        `user_regtime`,`user_modtime`, `salt`, `role`
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+        insert into `users`(
+        <include refid="usersDatas" />
+        )
+        values(
+        #{username},#{password},#{nickname},#{realname},#{userImg},#{userMobile},
+        #{userEmail},#{userSex},#{userBirth},#{userRegtime},#{userModtime}, #{salt}, #{role}
+        )
+    </insert>
+
+    <select id="findByUsername" resultType="per.poacher.beyoungmall.pojo.User">
+        select `user_id` as userId,
+        <include refid="usersDatas" />
+        from `users`
+        where `username` = #{username}
+    </select>
+
+    <update id="updatePasswordByUid">
+        update users
+        <set>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="userModtime != null">
+                user_modtime = #{userModtime}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="findByUid" resultType="per.poacher.beyoungmall.pojo.User">
+        select `user_id` as userId,
+        <include refid="usersDatas" />
+        from `users`
+        where `user_id` = #{userId}
+    </select>
+
+    <update id="updateInfoByUid">
+        update users
+        <set>
+            <if test="userMobile != null and userMobile != ''">
+                user_mobile = #{userMobile},
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                user_email = #{userEmail},
+            </if>
+            <if test="userSex != null and userSex != ''">
+                user_sex = #{userSex},
+            </if>
+            <if test="userModtime != null">
+                user_modtime = #{userModtime}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateImgByUid">
+        update `users`
+        <set>
+            <if test="userImg != null and userImg != ''">
+                user_img = #{userImg},
+            </if>
+            <if test="userModtime != null">
+                user_modtime = #{userModtime}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>

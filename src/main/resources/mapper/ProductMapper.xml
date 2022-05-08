@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.poacher.beyoungmall.mapper.ProductMapper">
+
+    <select id="findHotList" resultType="per.poacher.beyoungmall.pojo.Product">
+        select * from t_product
+        where status = 1
+        order by priority desc
+        limit 0,4
+    </select>
+
+    <select id="findById" resultType="per.poacher.beyoungmall.pojo.Product">
+        select * from t_product
+        where id = #{id}
+    </select>
+
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="id">
+        insert into t_product(
+        `item_type`,`title`,`sell_point`,`price`,`num`,`image`,`status`,`created_time`,`modified_time`
+        )
+        values(
+        #{itemType},#{title},#{sellPoint},#{price},#{num},#{image},#{status},#{createdTime},#{modifiedTime}
+        )
+    </insert>
+
+    <update id="deleteById">
+        update t_product
+        set status = 2, modified_time = #{modifiedTime}
+        where id = #{id}
+    </update>
+
+    <update id="updateById">
+        update t_product
+        <trim prefix="set" suffixOverrides=",">
+            <if test="itemType != '' and itemType != null">
+                item_type = #{itemType},
+            </if>
+            <if test="title != '' and title != null">
+                title = #{title},
+            </if>
+            <if test="sellPoint != '' and sellPoint != null">
+                sell_point = #{sellPoint},
+            </if>
+            <if test="price != '' and price != null">
+                price = #{price},
+            </if>
+            <if test="num != '' and num != null">
+                num = #{num},
+            </if>
+            <if test="priority != '' and priority != null">
+                priority = #{priority},
+            </if>
+            <if test="image != '' and image != null">
+                image = #{image},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <select id="findBykeyword" resultType="per.poacher.beyoungmall.pojo.Product">
+        select * from t_product
+        where title like concat("%",#{title},"%")
+    </select>
+
+    <select id="findProducts" resultType="per.poacher.beyoungmall.pojo.Product">
+        select * from t_product
+        where status = 1
+        order by created_time asc
+    </select>
+</mapper>

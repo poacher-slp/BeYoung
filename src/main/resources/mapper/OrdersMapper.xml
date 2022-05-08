@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.poacher.beyoungmall.mapper.OrdersMapper">
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into orders(
+        user_id,untitled,reveiver_name,receiver_mobile,reveiver_address,total_amount,
+        actual_amount,pay_type,order_remark,status,delivery_type,delivery_flow_id,order_freight,
+        delete_status,create_time,update_time,pay_time,delivery_time,finish_time,cancel_time
+        )
+        values(
+        #{userId},#{untitled},#{reveiverName},#{receiverMobile},#{reveiverAddress},
+        #{totalAmount},#{actualAmount},#{payType},#{orderRemark},#{status},#{deliveryType},
+        #{deliveryFlowId},#{orderFreight},#{deleteStatus},#{createTime},#{updateTime},
+        #{payTime},#{deliveryTime},#{finishTime},#{cancelTime}
+        )
+    </insert>
+
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="itemId">
+        insert into order_item(
+        order_id,product_id,product_name,product_img,sku_id,sku_name,
+        product_price,buy_counts,total_amount,basket_date,buy_time,is_comment
+        )
+        values(
+        #{orderId},#{productId},#{productName},#{productImg},#{skuId},
+        #{skuName},#{productPrice},#{buyCounts},#{totalAmount},#{basketDate},#{buyTime},#{isComment}
+        )
+    </insert>
+</mapper>
