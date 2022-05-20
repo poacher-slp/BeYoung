@@ -20,74 +20,69 @@
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
 		<link rel="stylesheet" type="text/css" href="../css/cart.css" />
-		<!--<script src="../js/cart.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../js/cart.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		<!--头部-->
-		<header class="header">
-			<!--logo-->
-			<div class="row">
-				<div class="col-md-3">
-					<a href="index.html">
-						<img src="../images/index/stumalllogo.png" />
-					</a>
-				</div>
-				<!--快捷选项-->
-				<div class="col-md-9 top-item">
-					<ul class="list-inline pull-right">
-						<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
-						<!--						<li class="li-split">|</li>-->
-						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
-						<li class="li-split">|</li>
-						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
-						<li class="li-split">|</li>
-						<li>
-							<!--下列列表按钮 ：管理-->
-							<div class="btn-group">
-								<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-									<span id="top-dropdown-btn"><span class="fa fa-gears"></span>&nbsp;管理 <span class="caret"></span></span>
-								</button>
-								<ul class="dropdown-menu top-dropdown-ul" role="menu">
-									<li><a href="password.html">修改密码</a></li>
-									<li><a href="userdata.html">个人资料</a></li>
-									<li><a href="upload.html">上传头像</a></li>
-									<li><a href="address.html">收货管理</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="li-split">|</li>
-						<li id="welcome" style="width: 150px"></li>
-					</ul>
-				</div>
+	<!--头部-->
+	<header class="header">
+		<!--logo-->
+		<div class="row">
+			<div class="col-md-3">
+				<a href="index.html">
+					<img src="../images/index/stumalllogo.png" />
+				</a>
 			</div>
-		</header>
-		<!--导航 -->
-		<!--分割导航和顶部-->
-		<div class="row top-nav">
-			<div class="col-md-6">
-				<ul class="nav nav-pills">
+			<!--快捷选项-->
+			<div class="col-md-9 top-item">
+				<ul class="list-inline pull-right">
+					<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
+					<!--						<li class="li-split">|</li>-->
+<!--					<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>-->
+<!--					<li class="li-split">|</li>-->
+					<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
+					<li class="li-split">|</li>
 					<li>
-						<a href="#"></a>
+						<!--下列列表按钮 ：管理-->
+						<div class="btn-group">
+							<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+								<span id="top-dropdown-btn"><span class="fa fa-gears"></span>&nbsp;管理 <span class="caret"></span></span>
+							</button>
+							<ul class="dropdown-menu top-dropdown-ul" role="menu">
+								<li><a href="password.html">修改密码</a></li>
+								<li><a href="userdata.html">个人资料</a></li>
+								<li><a href="upload.html">上传头像</a></li>
+								<li><a href="address.html">收货管理</a></li>
+							</ul>
+						</div>
 					</li>
-					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<!--					<li><a href="#">秒杀</a></li>-->
-					<!--					<li><a href="#">优惠券</a></li>-->
-					<!--					<li><a href="#">电脑VIP</a></li>-->
-					<!--					<li><a href="#">外卖</a></li>-->
-					<!--					<li><a href="#">超市</a></li>-->
+					<li class="li-split">|</li>
+					<li id="welcome" style="width: 150px"></li>
 				</ul>
 			</div>
-			<div class="col-md-6">
-				<form id="form-search" action="search.html" class="form-inline pull-right" role="form">
-					<div class="form-group">
-						<input type="text" class="form-control" id="search" name="search" placeholder="洗面奶">
-					</div>
-					<button id="btn-search" type="button" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
-				</form>
-			</div>
 		</div>
-		<!--头部结束-->
+	</header>
+	<!--导航 -->
+	<!--分割导航和顶部-->
+	<div class="row top-nav">
+		<div class="col-md-6">
+			<ul class="nav nav-pills">
+				<li>
+					<a href="#"></a>
+				</li>
+				<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
+			</ul>
+		</div>
+		<div class="col-md-6">
+			<form id="form-search" action="search.html" class="form-inline pull-right" role="form">
+				<div class="form-group">
+					<input type="text" class="form-control" id="search" name="search" placeholder="洗面奶">
+				</div>
+				<button id="btn-search" type="button" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
+			</form>
+		</div>
+	</div>
+	<!--头部结束-->
 		<!--导航结束-->
 		<div class="container">
 			<div class="col-md-offset-1 col-md-10">
@@ -112,25 +107,7 @@
 									</tr>
 								</thead>
 								<tbody id="cart-list" class="cart-body">
-									<!--
-									<tr>
-										<td>
-											<input type="checkbox" class="ckitem" />
-										</td>
-										<td><img src="../images/portal/13LenovoIdeaPad310_silvery/collect.png" class="img-responsive" /></td>
-										<td>戴尔(DELL)魔方15MF Pro-R2505TSS灵越</td>
-										<td>¥<span id="goodsPrice3">4699</span></td>
-										<td>
-											<input type="button" value="-" class="num-btn" onclick="reduceNum(3)" />
-											<input id="goodsCount3" type="text" size="2" readonly="readonly" class="num-text" value="1">
-											<input class="num-btn" type="button" value="+" onclick="addNum(3)" />
-										</td>
-										<td><span id="goodsCast3"></span></td>
-										<td>
-											<input type="button" onclick="delCartItem(this)" class="cart-del btn btn-default btn-xs" value="删除" />
-										</td>
-									</tr>
-									-->
+
 								</tbody>
 							</table>
 							<div class="total-bar">
@@ -191,7 +168,7 @@
 						<ul>
 							<li><a href="#"><p>商家帮助</p></a></li>
 							<li><a href="#">商家入驻</a></li>
-							<li><a href="#">商家后台</a></li>
+							<li><a href="adminLogin.html">商家后台</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
@@ -206,16 +183,6 @@
 						</ul>
 					</div>
 				</div>
-				<!--				<div class="col-md-4">-->
-				<!--					<div class="col-md-5">-->
-				<!--						<p>化妆品商城客户端</p>-->
-				<!--						<img src="../images/index/ios.png" class="lf">-->
-				<!--						<img src="../images/index/android.png" alt="" class="lf" />-->
-				<!--					</div>-->
-				<!--					<div class="col-md-6">-->
-				<!--						<img src="../images/index/erweima.png">-->
-				<!--					</div>-->
-				<!--				</div>-->
 			</div>
 			<!-- 页面底部-备案号 #footer -->
 			<div class="col-md-12 text-center bottom">

@@ -24,92 +24,70 @@
 	</head>
 
 	<body>
-		<!--头部-->
-		<header class="header">
-			<!--logo-->
-			<div class="row">
-				<div class="col-md-3">
-					<a href="index.html">
-						<img src="../images/index/stumalllogo.png" />
-					</a>
-				</div>
-				<!--快捷选项-->
-				<div class="col-md-9 top-item">
-					<ul class="list-inline pull-right">
-						<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
-						<!--						<li class="li-split">|</li>-->
-						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
-						<li class="li-split">|</li>
-						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
-						<li class="li-split">|</li>
-						<li>
-							<!--下列列表按钮 ：管理-->
-							<div class="btn-group">
-								<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-									<span id="top-dropdown-btn"><span class="fa fa-gears"></span>&nbsp;管理 <span class="caret"></span></span>
-								</button>
-								<ul class="dropdown-menu top-dropdown-ul" role="menu">
-									<li><a href="password.html">修改密码</a></li>
-									<li><a href="userdata.html">个人资料</a></li>
-									<li><a href="upload.html">上传头像</a></li>
-									<li><a href="address.html">收货管理</a></li>
-								</ul>
-							</div>
-						</li>
-						<li class="li-split">|</li>
-						<li id="welcome" style="width: 150px"></li>
-					</ul>
-				</div>
+	<!--头部-->
+	<header class="header">
+		<!--logo-->
+		<div class="row">
+			<div class="col-md-3">
+				<a href="index.html">
+					<img src="../images/index/stumalllogo.png" />
+				</a>
 			</div>
-		</header>
-		<!--导航 -->
-		<!--分割导航和顶部-->
-		<div class="row top-nav">
-			<div class="col-md-6">
-				<ul class="nav nav-pills">
+			<!--快捷选项-->
+			<div class="col-md-9 top-item">
+				<ul class="list-inline pull-right">
+					<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
+					<!--						<li class="li-split">|</li>-->
+<!--					<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>-->
+<!--					<li class="li-split">|</li>-->
+					<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
+					<li class="li-split">|</li>
 					<li>
-						<a href="#"></a>
+						<!--下列列表按钮 ：管理-->
+						<div class="btn-group">
+							<button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+								<span id="top-dropdown-btn"><span class="fa fa-gears"></span>&nbsp;管理 <span class="caret"></span></span>
+							</button>
+							<ul class="dropdown-menu top-dropdown-ul" role="menu">
+								<li><a href="password.html">修改密码</a></li>
+								<li><a href="userdata.html">个人资料</a></li>
+								<li><a href="upload.html">上传头像</a></li>
+								<li><a href="address.html">收货管理</a></li>
+							</ul>
+						</div>
 					</li>
-					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<!--					<li><a href="#">秒杀</a></li>-->
-					<!--					<li><a href="#">优惠券</a></li>-->
-					<!--					<li><a href="#">电脑VIP</a></li>-->
-					<!--					<li><a href="#">外卖</a></li>-->
-					<!--					<li><a href="#">超市</a></li>-->
+					<li class="li-split">|</li>
+					<li id="welcome" style="width: 150px"></li>
 				</ul>
 			</div>
-			<div class="col-md-6">
-				<form id="form-search" action="search.html" class="form-inline pull-right" role="form">
-					<div class="form-group">
-						<input type="text" class="form-control" id="search" name="search" placeholder="洗面奶">
-					</div>
-					<button id="btn-search" type="button" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
-				</form>
-			</div>
 		</div>
-		<!--头部结束-->
+	</header>
+	<!--导航 -->
+	<!--分割导航和顶部-->
+	<div class="row top-nav">
+		<div class="col-md-6">
+			<ul class="nav nav-pills">
+				<li>
+					<a href="#"></a>
+				</li>
+				<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
+			</ul>
+		</div>
+		<div class="col-md-6">
+			<form id="form-search" action="search.html" class="form-inline pull-right" role="form">
+				<div class="form-group">
+					<input type="text" class="form-control" id="search" name="search" placeholder="洗面奶">
+				</div>
+				<button id="btn-search" type="button" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
+			</form>
+		</div>
+	</div>
+	<!--头部结束-->
 		<!--导航结束-->
 		<div class="container">
 			<div class="col-md-2">
 				<!--左侧导航开始-->
 				<div class="panel-group" id="accordion">
-					<!--主选项：我的订单-->
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<p class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
-							</p>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div><a href="orders.html">全部订单</a></div>
-								<div><a href="orders.html">待付款</a></div>
-								<div><a href="orders.html">待收货</a></div>
-								<div><a href="orders.html">待评价</a></div>
-								<div><a href="orders.html">退货退款</a></div>
-							</div>
-						</div>
-					</div>
 					<!--主选项：资料修改-->
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -125,6 +103,25 @@
 								<div><a href="address.html"><b>收货管理</b></a></div>
 							</div>
 						</div>
+					</div>
+					<!--主选项：我的订单-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<p class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
+							</p>
+						</div>
+						<!--
+						<div id="collapseOne" class="panel-collapse collapse">
+							<div class="panel-body">
+								<div><a href="orders.html">全部订单</a></div>
+								<div><a href="orders.html">待付款</a></div>
+								<div><a href="orders.html">待收货</a></div>
+								<div><a href="orders.html">待评价</a></div>
+								<div><a href="orders.html">退货退款</a></div>
+							</div>
+						</div>
+						-->
 					</div>
 				</div>
 				<!--左侧导航结束-->
@@ -245,7 +242,7 @@
 						<ul>
 							<li><a href="#"><p>商家帮助</p></a></li>
 							<li><a href="#">商家入驻</a></li>
-							<li><a href="#">商家后台</a></li>
+							<li><a href="adminLogin.html">商家后台</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
@@ -271,7 +268,7 @@
 			$(document).ready(function () {
 				let aid = location.search.substr(1).split("=")[0];
 				let value = location.search.substr(1).split("=")[1];
-				console.log(aid, value);
+				console.log("aid, value---" + aid, value);
 				welcomeUser();
 				if(aid) {
 					getAddrByAid(aid,value);

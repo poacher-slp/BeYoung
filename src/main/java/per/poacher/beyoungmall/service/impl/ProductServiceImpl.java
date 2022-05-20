@@ -3,7 +3,9 @@ package per.poacher.beyoungmall.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import per.poacher.beyoungmall.mapper.ProductMapper;
+import per.poacher.beyoungmall.mapper.UserMapper;
 import per.poacher.beyoungmall.pojo.Product;
+import per.poacher.beyoungmall.pojo.User;
 import per.poacher.beyoungmall.service.ProductService;
 import per.poacher.beyoungmall.service.ex.DeleteException;
 import per.poacher.beyoungmall.service.ex.InsertException;
@@ -22,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<Product> findHotList() {
@@ -71,14 +76,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findBykeyword(String title) {
-        List<Product> list = productMapper.findBykeyword(title);
+    public List<Product> findBykeyword(String title, Integer uid) {
+        User user = userMapper.findByUid(uid);
+        Integer role = user.getRole();
+        List<Product> list = productMapper.findBykeyword(title, role);
         return list;
     }
 
     @Override
-    public List<Product> findProducts() {
-        List<Product> list = productMapper.findProducts();
+    public List<Product> findProducts(Integer uid) {
+        User user = userMapper.findByUid(uid);
+        Integer role = user.getRole();
+        List<Product> list = productMapper.findProducts(role);
         return list;
     }
 }

@@ -31,4 +31,6 @@ public interface CartService {
     Integer reduceNum(Integer cid, Integer uid);
 
     List<CartVo> getVoByCid(Integer[] cids, Integer uid);
+
+    Integer deleteById(Integer cid, Integer uid);
 }

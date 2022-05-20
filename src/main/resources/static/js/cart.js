@@ -1,28 +1,23 @@
 /*按加号数量增*/
-function addNum(rid) {
-	var n = parseInt($("#goodsCount"+rid).val());
-	$("#goodsCount"+rid).val(n + 1);
-	calcRow(rid);
-}
+// function addNum(rid) {
+// 	var n = parseInt($("#goodsCount"+rid).val());
+// 	$("#goodsCount"+rid).val(n + 1);
+// 	calcRow(rid);
+// }
 /*按减号数量减*/
-function reduceNum(rid) {
-	var n = parseInt($("#goodsCount"+rid).val());
-	if (n == 0)
-		return;
-	$("#goodsCount"+rid).val(n - 1);
-	calcRow(rid);
-}
+// function reduceNum(rid) {
+// 	var n = parseInt($("#goodsCount"+rid).val());
+// 	if (n == 0)
+// 		return;
+// 	$("#goodsCount"+rid).val(n - 1);
+// 	calcRow(rid);
+// }
 /*全选全不选*/
 function checkall(ckbtn) {
 	$(".ckitem").prop("checked", $(ckbtn).prop("checked"));
 	//calcTotal();
 }
-//删除按钮
-function delCartItem(btn) {
-	
-	$(btn).parents("tr").remove();
-	//calcTotal();
-}
+
 //批量删除按钮
 function selDelCart() {
 	//遍历所有按钮
@@ -30,19 +25,25 @@ function selDelCart() {
 		//如果选中
 		if ($(".ckitem")[i].checked) {
 			//删除
-			$($(".ckitem")[i]).parents("tr").remove();
+			// $($(".ckitem")[i]).parents("tr").remove();
 		}
 	}
 	//calcTotal();
 }
-$(function() {
-	//单选一个也得算价格
+
+
+//单选一个也得算价格
 	$(".ckitem").click(function() {
-			//calcTotal();
-		})
-		//开始时计算价格
-		//calcTotal();
-})
+		console.log("计算数量和价格");
+		calcTotal();
+		// $("#selectCount").val($(".ckitem").length);
+
+	})
+
+
+	//开始时计算价格
+	//calcTotal();
+
 //计算单行小计价格的方法
 function calcRow(rid) {
 	//取单价
@@ -52,10 +53,10 @@ function calcRow(rid) {
 	//小计金额
 	var vtotal = vprice * vnum;
 	//赋值
-	$("#goodsCast"+rid).html("¥" + vtotal);
+	// $("#goodsCast"+rid).html("¥" + vtotal);
 }
 //计算总价格的方法
-/*
+
 function calcTotal() {
 	//选中商品的数量
 	var vselectCount = 0;
@@ -74,7 +75,7 @@ function calcTotal() {
 		//小计金额
 		var vtotal = vprice * vnum;
 		//赋值
-		$tr.children(":eq(5)").children("span").html("¥" + vtotal);
+		// $tr.children(":eq(5)").children("span").html("¥" + vtotal);
 		//计算每个商品的价格小计结束
 
 		//检查是否选中
@@ -88,4 +89,4 @@ function calcTotal() {
 		$("#selectTotal").html(vselectTotal);
 		$("#selectCount").html(vselectCount);
 	}
-}*/
+}

@@ -45,7 +45,7 @@ public interface ProductService {
      * @param title
      * @return
      */
-    List<Product> findBykeyword(String title);
+    List<Product> findBykeyword(String title, Integer uid);
 
-    List<Product> findProducts();
+    List<Product> findProducts(Integer uid);
 }

@@ -36,8 +36,8 @@
 					<ul class="list-inline pull-right">
 						<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
 						<!--						<li class="li-split">|</li>-->
-						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
-						<li class="li-split">|</li>
+<!--						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>-->
+<!--						<li class="li-split">|</li>-->
 						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
 						<li class="li-split">|</li>
 						<li>
@@ -86,23 +86,6 @@
 			<div class="col-md-2">
 				<!--左侧导航开始-->
 				<div class="panel-group" id="accordion">
-					<!--主选项：我的订单-->
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<p class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
-							</p>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div><a href="orders.html">全部订单</a></div>
-								<div><a href="orders.html">待付款</a></div>
-								<div><a href="orders.html">待收货</a></div>
-								<div><a href="orders.html">待评价</a></div>
-								<div><a href="orders.html">退货退款</a></div>
-							</div>
-						</div>
-					</div>
 					<!--主选项：资料修改-->
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -117,6 +100,25 @@
 								<div><a href="upload.html">上传头像</a></div>
 								<div><a href="address.html">收货管理</a></div>
 							</div>
+						</div>
+					</div>
+					<!--主选项：我的订单-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<p class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
+							</p>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse">
+							<!--
+							<div class="panel-body">
+								<div><a href="orders.html">全部订单</a></div>
+								<div><a href="orders.html">待付款</a></div>
+								<div><a href="orders.html">待收货</a></div>
+								<div><a href="orders.html">待评价</a></div>
+								<div><a href="orders.html">退货退款</a></div>
+							</div>
+							-->
 						</div>
 					</div>
 				</div>
@@ -219,7 +221,7 @@
 						<ul>
 							<li><a href="#"><p>商家帮助</p></a></li>
 							<li><a href="#">商家入驻</a></li>
-							<li><a href="#">商家后台</a></li>
+							<li><a href="adminLogin.html">商家后台</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
@@ -234,16 +236,6 @@
 						</ul>
 					</div>
 				</div>
-				<!--				<div class="col-md-4">-->
-				<!--					<div class="col-md-5">-->
-				<!--						<p>化妆品商城客户端</p>-->
-				<!--						<img src="../images/index/ios.png" class="lf">-->
-				<!--						<img src="../images/index/android.png" alt="" class="lf" />-->
-				<!--					</div>-->
-				<!--					<div class="col-md-6">-->
-				<!--						<img src="../images/index/erweima.png">-->
-				<!--					</div>-->
-				<!--				</div>-->
 			</div>
 			<!-- 页面底部-备案号 #footer -->
 			<div class="col-md-12 text-center bottom">
@@ -257,7 +249,7 @@
 				getInfo();
 			});
 		</script>
-	<script src="../js/beYoung.js" type="text/javascript"></script>
+		<script src="../js/beYoung.js" type="text/javascript"></script>
 	</body>
 
 </html>

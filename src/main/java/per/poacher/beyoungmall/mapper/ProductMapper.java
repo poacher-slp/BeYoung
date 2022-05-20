@@ -49,11 +49,11 @@ public interface ProductMapper {
      * 通过title模糊查询商品列表
      * @return
      */
-    List<Product> findBykeyword(String title);
+    List<Product> findBykeyword(@Param("title") String title, @Param("role") Integer role);
 
     /**
      * 获取化妆品列表
      * @return
      */
-    List<Product> findProducts();
+    List<Product> findProducts(Integer role);
 }

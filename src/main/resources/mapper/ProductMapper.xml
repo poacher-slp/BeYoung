@@ -52,6 +52,9 @@
             <if test="priority != '' and priority != null">
                 priority = #{priority},
             </if>
+            <if test="status != '' and status != null">
+                status = #{status},
+            </if>
             <if test="image != '' and image != null">
                 image = #{image},
             </if>
@@ -64,12 +67,25 @@
 
     <select id="findBykeyword" resultType="per.poacher.beyoungmall.pojo.Product">
         select * from t_product
-        where title like concat("%",#{title},"%")
+        where
+        title like concat("%",#{title},"%")
+        and
+        <if test="role == 0">
+            (
+        </if>
+         status = 1
+        <if test="role == 0">
+            or status = 2)
+        </if>
+        order by created_time asc
     </select>
 
     <select id="findProducts" resultType="per.poacher.beyoungmall.pojo.Product">
         select * from t_product
         where status = 1
+        <if test="role == 0">
+            or status = 2
+        </if>
         order by created_time asc
     </select>
 </mapper>

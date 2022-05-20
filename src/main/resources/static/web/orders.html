@@ -25,7 +25,7 @@
 	<body>
 		<!--头部-->
 		<header class="header">
-			<!--BeYounglogo-->
+			<!--logo-->
 			<div class="row">
 				<div class="col-md-3">
 					<a href="index.html">
@@ -35,8 +35,8 @@
 				<!--快捷选项-->
 				<div class="col-md-9 top-item">
 					<ul class="list-inline pull-right">
-						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>
-						<li class="li-split">|</li>
+						<!--						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
+						<!--						<li class="li-split">|</li>-->
 						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
 						<li class="li-split">|</li>
 						<li><a href="cart.html"><span class="fa fa-cart-plus"></span>&nbsp;购物车</a></li>
@@ -51,12 +51,12 @@
 									<li><a href="password.html">修改密码</a></li>
 									<li><a href="userdata.html">个人资料</a></li>
 									<li><a href="upload.html">上传头像</a></li>
-									<li><a href="address.html">收货管理	</a></li>
+									<li><a href="address.html">收货管理</a></li>
 								</ul>
 							</div>
 						</li>
 						<li class="li-split">|</li>
-						<li><a href="login.html"><span class="fa fa-user"></span>&nbsp;登录</a></li>
+						<li id="welcome" style="width: 150px"></li>
 					</ul>
 				</div>
 			</div>
@@ -70,19 +70,14 @@
 						<a href="#"></a>
 					</li>
 					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<li><a href="#">秒杀</a></li>
-					<li><a href="#">优惠券</a></li>
-					<li><a href="#">电脑VIP</a></li>
-					<li><a href="#">外卖</a></li>
-					<li><a href="#">超市</a></li>
 				</ul>
 			</div>
 			<div class="col-md-6">
-				<form action="search.html" class="form-inline pull-right" role="form">
+				<form id="form-search" action="search.html" class="form-inline pull-right" role="form">
 					<div class="form-group">
-						<input type="text" class="form-control" id="search" name="search" placeholder="请输入商品名称进行搜索">
+						<input type="text" class="form-control" id="search" name="search" placeholder="洗面奶">
 					</div>
-					<button type="submit" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
+					<button id="btn-search" type="button" class="btn btn-default btn-sm"><span class="fa fa-search"></span></button>
 				</form>
 			</div>
 		</div>
@@ -92,26 +87,9 @@
 			<div class="col-md-2">
 				<!--左侧导航开始-->
 				<div class="panel-group" id="accordion">
+					<!--主选项：资料修改-->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<!--主选项：我的订单-->
-							<p class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
-							</p>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse in">
-							<div class="panel-body">
-								<div><a href="orders.html"><b>全部订单</b></a></div>
-								<div><a href="orders.html">待付款</a></div>
-								<div><a href="orders.html">待收货</a></div>
-								<div><a href="orders.html">待评价</a></div>
-								<div><a href="orders.html">退货退款</a></div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<!--主选项：资料修改-->
 							<p class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">资料修改</a>
 							</p>
@@ -124,6 +102,25 @@
 								<div><a href="address.html">收货管理</a></div>
 							</div>
 						</div>
+					</div>
+					<!--主选项：我的订单-->
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<p class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">我的订单</a>
+							</p>
+						</div>
+						<!--
+						<div id="collapseOne" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div><a href="orders.html"><b>全部订单</b></a></div>
+								<div><a href="orders.html">待付款</a></div>
+								<div><a href="orders.html">待收货</a></div>
+								<div><a href="orders.html">待评价</a></div>
+								<div><a href="orders.html">退货退款</a></div>
+							</div>
+						</div>
+						-->
 					</div>
 				</div>
 			</div>
@@ -150,6 +147,7 @@
 								</tr>
 							</thead>
 							<tbody class="orders-body">
+							<!--
 								<tr>
 									<td><img src="../images/portal/12DELLXPS13-silvery/collect.png" class="img-responsive" /></td>
 									<td>联想(Lenovo)小新Air13 Pro 13.3英寸14.8mm超轻薄笔记本电脑</td>
@@ -163,32 +161,7 @@
 									</td>
 									<td><a href="#" class="btn btn-default btn-xs">确认收货</a></td>
 								</tr>
-								<tr>
-									<td><img src="../images/portal/16LenovoYOGA900green/collect.png" class="img-responsive" /></td>
-									<td>戴尔(DELL)XPS13-9360-R1609 13.3</td>
-									<td>¥<span>4696</span></td>
-									<td>2件</td>
-									<td>¥<span>9392</span></td>
-									<td><a href="#">申请售后</a></td>
-									<td>
-										<div>已发货</div>
-										<div><a href="orderInfo.html">订单详情</a></div>
-									</td>
-									<td><a href="#" class="btn btn-default btn-xs">确认收货</a></td>
-								</tr>
-								<tr>
-									<td><img src="../images/portal/13LenovoIdeaPad310_silvery/collect.png" class="img-responsive" /></td>
-									<td>戴尔(DELL)魔方15MF Pro-R2505TSS灵越</td>
-									<td>¥<span>5999</span></td>
-									<td>1件</td>
-									<td>¥<span>5999</span></td>
-									<td><a href="#">申请售后</a></td>
-									<td>
-										<div>已发货</div>
-										<div><a href="orderInfo.html">订单详情</a></div>
-									</td>
-									<td><a href="#" class="btn btn-default btn-xs">确认收货</a></td>
-								</tr>
+								-->
 							</tbody>
 						</table>
 						<div>
@@ -263,18 +236,14 @@
 			</div>
 			<!--联系我们、下载客户端等-->
 			<div class="container beforeBottom">
-				<div class="col-md-offset-1 col-md-3">
+				<div class="col-md-offset-2 col-md-4">
 					<div><img src="../images/index/stumalllogo.png" alt="" class="footLogo" /></div>
 					<div><img src="../images/index/footerFont.png" alt="" /></div>
 				</div>
 				<div class="col-md-4 callus text-center">
 					<div class="col-md-4">
 						<ul>
-							<li>
-								<a href="#">
-									<p>买家帮助</p>
-								</a>
-							</li>
+							<li><a href="#"><p>买家帮助</p></a></li>
 							<li><a href="#">新手指南</a></li>
 							<li><a href="#">服务保障</a></li>
 							<li><a href="#">常见问题</a></li>
@@ -282,22 +251,14 @@
 					</div>
 					<div class="col-md-4">
 						<ul>
-							<li>
-								<a href="#">
-									<p>商家帮助</p>
-								</a>
-							</li>
+							<li><a href="#"><p>商家帮助</p></a></li>
 							<li><a href="#">商家入驻</a></li>
-							<li><a href="#">商家后台</a></li>
+							<li><a href="adminLogin.html">商家后台</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<ul>
-							<li>
-								<a href="#">
-									<p>关于我们</p>
-								</a>
-							</li>
+							<li><a href="#"><p>关于我们</p></a></li>
 							<li><a href="#">关于圆心</a></li>
 							<li><a href="#">联系我们</a></li>
 							<li>
@@ -307,23 +268,19 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<div class="col-md-5">
-						<p>BeYoung客户端</p>
-						<img src="../images/index/ios.png" class="lf">
-						<img src="../images/index/android.png" alt="" class="lf" />
-					</div>
-					<div class="col-md-6">
-						<img src="../images/index/erweima.png">
-					</div>
-				</div>
 			</div>
 			<!-- 页面底部-备案号 #footer -->
 			<div class="col-md-12 text-center bottom">
-				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" href="http://www.dnsc.cn/">圆心科技集团有限公司</a> 版权所有
+				Copyright © 2022 dnsc.cn All Rights Reserved 浙ICP备08963888号-45 <a target="_blank" href="index.html">BeYoung集团有限公司</a> 版权所有
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="text/javascript">
+			$(document).ready(function () {
+				welcomeUser();
+			});
+		</script>
+		<script src="../js/beYoung.js" type="text/javascript"></script>
 	</body>
 
 </html>

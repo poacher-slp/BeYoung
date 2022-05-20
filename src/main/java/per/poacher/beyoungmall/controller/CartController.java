@@ -47,6 +47,13 @@ public class CartController extends BaseController{
         return new Result<>(OK, data);
     }
 
+    @RequestMapping("{cid}/delete")
+    public Result<Integer> delete(@PathVariable("cid") Integer cid, HttpSession session) {
+        Integer uid = getUidFromSession(session);
+        Integer data = cartService.deleteById(cid, uid);
+        return new Result<>(OK, data);
+    }
+
     @RequestMapping("list")
     public Result<List<CartVo>> getVoByCid(Integer[] cids, HttpSession session) {
         List<CartVo> data = cartService.getVoByCid(cids,getUidFromSession(session));

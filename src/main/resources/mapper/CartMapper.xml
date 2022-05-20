@@ -55,4 +55,9 @@
         )
         order by c.create_time desc
     </select>
+
+    <delete id="deleteById">
+        delete from t_cart
+        where cid = #{cid} and uid = #{uid}
+    </delete>
 </mapper>

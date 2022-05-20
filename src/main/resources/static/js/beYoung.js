@@ -81,6 +81,7 @@ $("#btn-reg").click(function() {
 
 //登录页的登录
 $("#btn-login").click(function(){
+    console.log($("#form-login").serialize());
     let flag = check();
     console.log("check()值：" + flag);
     if(!flag) {
@@ -165,7 +166,7 @@ function showHotList() {
                     let html = '<div class="col-md-12">\n' +
                         '<div class="col-md-7 text-row-2"><a href="product.html?id=#{id}">#{title}</a></div>\n' +
                         '<div class="col-md-2">￥#{price}</div>\n' +
-                        '<div class="col-md-3"><img src="..#{image}collect.png" class="img-responsive" /></div>\n' +
+                        '<div class="col-md-3"><img src="../images/#{image}" class="img-responsive" /></div>\n' +
                         '</div>';
                     html = html.replace(/#{id}/g,list[i].id);
                     html = html.replace(/#{title}/g,list[i].title);
@@ -207,6 +208,32 @@ $("#btn-change-password").click(function(){
             }
         });
     }
+});
+
+//上传头像
+$("#btn-changeImg").click(function(){
+    $.ajax({
+        url: "/users/changeImg",
+        type: "post",
+        data: new FormData($("#form-changeImg")[0]),
+        processData: false,	//处理数据的形式，关闭处理数据
+        contentType: false,	//提交数据形式，关闭默认提交数据形式
+        dataType: "json",
+        success: function(json){
+            if(json.state == 200) {
+                alert("头像修改成功");
+                $("#img-avatar").attr("src", "../images/" + json.data);
+                $.cookie("userImg", json.data, {expires: 7});
+                location.href = "upload.html";
+            }
+            else {
+                alert("头像修改失败");
+            }
+        },
+        error: function(xhr){
+            alert("头像修改时产生未知的异常" + xhr.message);
+        }
+    });
 });
 
 //获取个人信息
@@ -386,22 +413,24 @@ function updateByAid(value) {
 
 //删除收货地址
 function deleteByAid(aid){
-    $.ajax({
-        url: "/addresses/"+aid+"/delete",
-        type: "post",
-        dataType: "json",
-        success: function(json){
-            if(json.state == 200) {
-                showAddressList();
+    if(confirm("确定删除该地址吗")) {
+        $.ajax({
+            url: "/addresses/"+aid+"/delete",
+            type: "post",
+            dataType: "json",
+            success: function(json){
+                if(json.state == 200) {
+                    showAddressList();
+                }
+                else {
+                    alert("删除收获地址失败!" + json.message);
+                }
+            },
+            error: function(xhr){
+                alert("删除收获地址时产生未知的异常!" + xhr.status);
             }
-            else {
-                alert("删除收获地址失败!" + json.message);
-            }
-        },
-        error: function(xhr){
-            alert("删除收获地址时产生未知的异常!" + xhr.status);
-        }
-    });
+        });
+    }
 };
 
 //设为默认地址
@@ -437,8 +466,8 @@ function productDetail(id) {
                 $("#product-sell-point").html(json.data.sellPoint);
                 $("#product-price").html(json.data.price);
                 for(let i = 0; i <= 5; i++) {
-                    $("#product-image-" + i + "-big").attr("src", ".." + json.data.image + i + "_big.png");
-                    $("#product-image-" + i).attr("src", ".." + json.data.image + i + ".jpg");
+                    $("#product-image-1-big").attr("src", "../images/" + json.data.image);
+                    // $("#product-image-" + i).attr("src", ".." + json.data.image + i + ".jpg");
                 }
             }
             else {
@@ -452,15 +481,20 @@ function productDetail(id) {
     });
 };
 
-//加入购物车
 $("#btn-add-to-cart").click(function () {
     let id = $.getUrlParam("id");
+    let amount = $("#num").val();
+    addToCart(id, amount);
+});
+
+//加入购物车
+function addToCart(id, amount) {
     $.ajax({
         url: "/carts/addToCart",
         type: "post",
         data: {
             "pid": id,
-            "amount": $("#num").val()
+            "amount": amount
         },
         dataType: "json",
         success: function(json){
@@ -473,10 +507,10 @@ $("#btn-add-to-cart").click(function () {
             }
         },
         error: function(xhr){
-            alert("加入购物车时产生未知的异常!" + xhr.status);
+            alert("请先登录账号!" + xhr.status);
         }
     });
-});
+};
 
 //显示购物车列表
 function showCartList() {
@@ -492,7 +526,7 @@ function showCartList() {
                     '<td>\n' +
                     '<input value="#{cid}" name="cids" type="checkbox" class="ckitem" />\n' +
                     '</td>\n' +
-                    '<td><img src="..#{image}collect.png" class="img-responsive" /></td>\n' +
+                    '<td><img src="../images/#{image}" class="img-responsive" /></td>\n' +
                     '<td>#{title}#{msg}</td>\n' +
                     '<td>¥<span id="goodsPrice#{cid}">#{price}</span></td>\n' +
                     '<td>\n' +
@@ -566,6 +600,27 @@ function reduceNum(cid) {
         },
     });
 };
+//删除购物车
+function delCartItem(cid) {
+    if (confirm("确定删除此商品吗？")) {
+        $.ajax({
+            url: "/carts/"+cid+"/delete",
+            type: "post",
+            dataType: "json",
+            success: function(json){
+                if(json.state == 200) {
+                    showCartList();
+                }
+                else {
+                    alert("删除该化妆品失败!" + json.message);
+                }
+            },
+            error: function(xhr){
+                alert("删除该化妆品时产生未知的异常!" + xhr.status);
+            }
+        });
+    }
+}
 
 //获取化妆品列表
 function showProductList() {
@@ -585,8 +640,11 @@ function showProductList() {
                         '<td>￥#{price}</td>\n' +
                         '<td>#{num}</td>\n' +
                         '<td><a class="btn btn-xs btn-info" href="editProduct.html?id=#{id}"><span class="fa fa-edit"></span> 修改</a></td>\n' +
-                        '<td><a class="btn btn-xs add-del btn-info" onclick="deleteProduct(#{id})"><span class="fa fa-trash-o"></span> 删除</a></td>\n' +
-                        '</tr>';
+                        '<td>';
+                    if(list[i].status != 2) {
+                        html += '<a class="btn btn-xs add-del btn-info" onclick="deleteProduct(#{id})"><span class="fa fa-trash-o"></span> 删除</a>';
+                    }
+                    html += '</td></tr>';
                     html = html.replace(/#{itemType}/g,list[i].itemType);
                     html = html.replace(/#{title}/g,list[i].title);
                     html = html.replace(/#{price}/g,list[i].price);
@@ -620,6 +678,8 @@ function getProductByid(value) {
                 $("#num").val(json.data.num);
                 $("#priority").val(json.data.priority);
                 $("#image").val(json.data.image);
+                let radio = json.data.status == 1 ? $("#onSell") : $("#soldOut");
+                radio.prop("checked", "checked");
             }
             else {
                 alert("获取化妆品信息失败！" + json.message);
@@ -648,10 +708,14 @@ $("#btn-product-info").click(function(){
 
 //新增化妆品
 function addProduct() {
+    let formData = new FormData($("#form-product-info")[0]);
+    console.log(formData);
     $.ajax({
         url: "/products/add",
         type: "post",
-        data: $("#form-product-info").serialize(),
+        data: formData,
+        processData: false,
+        contentType: false,
         dataType: "json",
         success: function(json){
             if(json.state == 200) {
@@ -670,10 +734,15 @@ function addProduct() {
 
 //修改化妆品信息
 function updateProductById(value) {
+    let formData = new FormData($("#form-product-info")[0]);
+    console.log(formData);
     $.ajax({
         url: "/products/"+value+"/update",
         type: "post",
-        data: $("#form-product-info").serialize(),
+        // data: $("#form-product-info").serialize(),
+        data: formData,
+        processData: false,
+        contentType: false,
         dataType: "json",
         success: function(json){
             if(json.state == 200) {
@@ -692,20 +761,169 @@ function updateProductById(value) {
 
 //删除化妆品
 function deleteProduct(id){
+    if (confirm("确定下架此商品吗")) {
+        $.ajax({
+            url: "/products/"+id+"/delete",
+            type: "post",
+            dataType: "json",
+            success: function(json){
+                if(json.state == 200) {
+                    showProductList();
+                }
+                else {
+                    alert("删除化妆品失败!" + json.message);
+                }
+            },
+            error: function(xhr){
+                alert("删除化妆品时产生未知的异常!" + xhr.status);
+            }
+        });
+    }
+};
+
+$("#btn-search").click(function () {
+    var search = $("#search").val();
+    location.href = "search.html?search=" + search;
+});
+
+//后台查询
+function adminSearch(search) {
+    console.log("传后台search:" + search);
     $.ajax({
-        url: "/products/"+id+"/delete",
-        type: "post",
+        url: "/products/search/"+search,
+        type: "get",
         dataType: "json",
         success: function(json){
             if(json.state == 200) {
-                showProductList();
+                console.log("跳过去了");
+                $("#product-list").empty();
+                console.log("清空了");
+                let list = json.data;
+                for(let i = 0; i < list.length; i++) {
+                    let html = '<tr>\n' +
+                        '<td>#{itemType}</td>\n' +
+                        '<td>#{title}</td>\n' +
+                        '<td>￥#{price}</td>\n' +
+                        '<td>#{num}</td>\n' +
+                        '<td><a class="btn btn-xs btn-info" href="editProduct.html?id=#{id}"><span class="fa fa-edit"></span> 修改</a></td>\n' +
+                        '<td><a class="btn btn-xs add-del btn-info" onclick="deleteProduct(#{id})"><span class="fa fa-trash-o"></span> 删除</a></td>\n' +
+                        '</tr>';
+                    html = html.replace(/#{itemType}/g,list[i].itemType);
+                    html = html.replace(/#{title}/g,list[i].title);
+                    html = html.replace(/#{price}/g,list[i].price);
+                    html = html.replace(/#{num}/g,list[i].num);
+                    html = html.replace(/#{id}/g,list[i].id);
+                    $("#product-list").append(html);
+                }
             }
             else {
-                alert("删除化妆品失败!" + json.message);
+                alert("查询失败！"+ json.message);
             }
         },
         error: function(xhr){
-            alert("删除化妆品时产生未知的异常!" + xhr.status);
+            alert("查询时产生未知的异常!" + xhr.message);
+        }
+    });
+}
+
+//用户查询
+function search(search) {
+    $.ajax({
+        url: "/products/search/"+search,
+        // url: "/products/search",
+        type: "get",
+        // data:{"search":search},
+        dataType: "json",
+        success: function(json){
+            // alert("success"+search);
+            if(json.state == 200) {
+                // $("#product-list").empty();
+                let list = json.data;
+                for(let i = 1; i <= (list.length / 4 + 1); i++) {
+                    let tr = '<div class="col-md-offset-1 col-md-10">';
+                    for(let j = 4 * (i-1); j <= (4 * i - 1) && j < list.length; j++) {
+                        let td = '<div class="col-md-3">\n' +
+                            '<div class="goods-panel">\n' +
+                            '<img src="../images/#{image}" class="img-responsive" />\n' +
+                            '<p>¥#{price}</p>\n' +
+                            '<p class="text-row-3"><a href="product.html?id=#{id}"><small>#{itemType} #{title}</small></a></p>\n' +
+                            '<span>\n' +
+                            '<a href="javascript:void(0)" class="btn btn-default btn-xs add-fav"><span class="fa fa-heart-o"></span>加入收藏</a>\n' +
+                            '<a onclick="addToCart(#{id},1)" class="btn btn-default btn-xs add-cart"><span class="fa fa-cart-arrow-down"></span>加入购物车</a>\n' +
+                            '</span>\n' +
+                            '</div>\n' +
+                            '</div>';
+                        td = td.replace(/#{itemType}/g,list[j].itemType);
+                        td = td.replace(/#{title}/g,list[j].title);
+                        td = td.replace(/#{price}/g,list[j].price);
+                        td = td.replace(/#{image}/g,list[j].image);
+                        td = td.replace(/#{id}/g,list[j].id);
+                        tr += td;
+                    }
+                    tr += "</div>";
+                    $("#searchResult").append(tr);
+                }
+            }
+            else {
+                alert("搜索失败！"+ json.message);
+            }
+        },
+        error: function(xhr){
+            // alert("error"+search);
+            alert("搜索时产生未知的异常!" + xhr.message);
+        }
+    });
+}
+
+//显示所有商品
+function showList() {
+    $.ajax({
+        url: "/products",
+        type: "get",
+        dataType: "json",
+        success: function(json){
+            if(json.state == 200) {
+                // $("#product-list").empty();
+                let list = json.data;
+                for(let i = 1; i <= (list.length / 4 + 1); i++) {
+                    let tr = '<div class="col-md-offset-1 col-md-10">';
+                    for(let j = 4 * (i-1); j <= (4 * i - 1) && j < list.length; j++) {
+                        let td = '<div class="col-md-3">\n' +
+                            '<div class="goods-panel">\n' +
+                            '<img src="../images/#{image}" class="img-responsive" />\n';
+
+                            if (list[j].priority == null) {
+                                td += '<p>¥#{price} 累计销售: 0</p>\n';
+                            }
+                            else {
+                                td += '<p>¥#{price} 累计销售: #{priority}</p>\n';
+                            }
+
+                            td += '<p class="text-row-3"><a href="product.html?id=#{id}"><small>#{itemType} #{title}</small></a></p>\n' +
+                            '<span>\n' +
+                            '<a href="javascript:void(0)" class="btn btn-default btn-xs add-fav"><span class="fa fa-heart-o"></span>加入收藏</a>\n' +
+                            '<a onclick="addToCart(#{id},1)" class="btn btn-default btn-xs add-cart"><span class="fa fa-cart-arrow-down"></span>加入购物车</a>\n' +
+                            '</span>\n' +
+                            '</div>\n' +
+                            '</div>';
+                        td = td.replace(/#{itemType}/g,list[j].itemType);
+                        td = td.replace(/#{title}/g,list[j].title);
+                        td = td.replace(/#{price}/g,list[j].price);
+                        td = td.replace(/#{priority}/g,list[j].priority);
+                        td = td.replace(/#{image}/g,list[j].image);
+                        td = td.replace(/#{id}/g,list[j].id);
+                        tr += td;
+                    }
+                    tr += "</div>";
+                    $("#allList").append(tr);
+                }
+            }
+            else {
+                alert("获取化妆品列表失败！"+ json.message);
+            }
+        },
+        error: function(xhr){
+            alert("获取化妆品列表时产生未知的异常!" + xhr.message);
         }
     });
 };

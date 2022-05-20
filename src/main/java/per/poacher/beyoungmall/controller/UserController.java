@@ -10,6 +10,7 @@ import per.poacher.beyoungmall.service.UserService;
 import per.poacher.beyoungmall.service.ex.InsertException;
 import per.poacher.beyoungmall.service.ex.UsernameDuplicatedException;
 import per.poacher.beyoungmall.util.Result;
+import per.poacher.beyoungmall.util.UploadUtils;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
@@ -76,55 +77,11 @@ public class UserController extends BaseController {
         return new Result<>(OK);
     }
 
-    public static final int IMG_MAX_SIZE = 10 * 1024 * 1024;    //图像上传的最大值
-    public static final List<String> IMG_TYPE = new ArrayList<>();  //文件上传的类型
-    static{
-        IMG_TYPE.add("image/jpeg");
-        IMG_TYPE.add("image/png");
-        IMG_TYPE.add("image/bmp");
-        IMG_TYPE.add("image/gif");
-        IMG_TYPE.add("image/jpg");
-    }
-
-
     @RequestMapping("changeImg")
     public Result<String> changeImg(HttpSession session, @RequestParam("file") MultipartFile file) {
-        if(file.isEmpty()) {
-            throw new FileEmptyException("文件为空");
-        }
-        if(file.getSize() > IMG_MAX_SIZE) {
-            throw new FileSizeException("文件超出限制");
-        }
-        if(!IMG_TYPE.contains(file.getContentType())) {
-            throw new FileTypeException("文件类型不支持");
-        }
-//        String parent = session.getServletContext().getRealPath("upload");
-//        System.out.println("parent---" + parent);
-        String parent = "E:/IDEA/poacher/beyoungmall/src/upload/" + getUidFromSession(session);
-//        File dir = new File(parent);
-//        if (!dir.exists()) {
-//            dir.mkdirs();
-//        }
-        String originalFilename = file.getOriginalFilename();
-        int index = originalFilename.lastIndexOf(".");
-        String suffix = originalFilename.substring(index);
-        String filename = UUID.randomUUID().toString().toUpperCase() + suffix;
-        String userImg = parent + "/" + filename;
-        File dest = new File(userImg);
-        if(!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-//        File dest = new File(dir, filename);    //空文件
-//        参数file中数据写入到这个空文件中
-        try {
-            file.transferTo(dest);//将file文件中的数据写入到dest中
-        } catch (IOException e) {
-            throw new FileUploadIOException("文件读写异常");
-        }catch (FileStateException e) {
-            throw new FileStateException("文件状态异常");
-        }
+        String username = getUsernameFromSession(session);
+        String userImg = UploadUtils.uploadImg(file, username);
         Integer uid = getUidFromSession(session);
-//        String userImg = "/upload/" + filename;
         userService.changeImg(uid, userImg);
         return new Result<>(OK, userImg);
     }

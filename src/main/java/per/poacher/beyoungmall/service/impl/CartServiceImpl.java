@@ -7,10 +7,7 @@ import per.poacher.beyoungmall.mapper.ProductMapper;
 import per.poacher.beyoungmall.pojo.Cart;
 import per.poacher.beyoungmall.pojo.Product;
 import per.poacher.beyoungmall.service.CartService;
-import per.poacher.beyoungmall.service.ex.AccessDeniedException;
-import per.poacher.beyoungmall.service.ex.CartNotFoundException;
-import per.poacher.beyoungmall.service.ex.InsertException;
-import per.poacher.beyoungmall.service.ex.UpdateException;
+import per.poacher.beyoungmall.service.ex.*;
 import per.poacher.beyoungmall.vo.CartVo;
 
 import java.rmi.AccessException;
@@ -107,5 +104,14 @@ public class CartServiceImpl implements CartService {
             }
         }
         return list;
+    }
+
+    @Override
+    public Integer deleteById(Integer cid, Integer uid) {
+        Integer rows = cartMapper.deleteById(cid, uid);
+        if (rows != 1) {
+            throw new DeleteException("删除购物车失败");
+        }
+        return rows;
     }
 }
